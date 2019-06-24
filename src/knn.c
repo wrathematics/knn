@@ -94,7 +94,7 @@ static inline int vote(voters_t *const restrict voters)
   int *const restrict votes = voters->labels;
   int group;
   
-  memset(tally, 0, k*sizeof(tally));
+  memset(tally, 0, k*sizeof(*tally));
   SAFE_FOR_SIMD
   for (int i=0; i<k; i++)
     tally[votes[i]-1] += 1.0;
@@ -157,7 +157,7 @@ SEXP R_knn(SEXP x_, SEXP y_, SEXP test_, SEXP k_)
   int_r ret_pt = INTEGER(ret);
   
   double *dists = malloc(m * sizeof(*dists));
-  double *test_obs = malloc(n*sizeof(*test_obs));
+  double *test_obs = malloc(n * sizeof(*test_obs));
   if (dists == NULL || test_obs == NULL)
   {
     FREE(dists);
